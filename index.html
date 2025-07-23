@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -232,7 +233,6 @@
     .stars { display: flex; gap: 4px; margin-top: .5rem; }
     .stars span { color: var(--star); }
 
-    /* Novos blocos de oferta lado a lado */
     .offers {
       display: flex;
       flex-wrap: wrap;
@@ -251,12 +251,10 @@
       text-align: center;
       transition: transform .3s;
     }
-    /* Pacote Básico (cinza) */
     .offer-box.basic {
       background: #444;
       flex: 1;
     }
-    /* Pacote Completo (vibrante, maior e pulsante) */
     .offer-box.complete {
       background: linear-gradient(135deg, #e63946, #ff4e50);
       flex: 1.2;
@@ -276,7 +274,6 @@
       margin-bottom: 0.5rem;
       color: var(--accent);
     }
-    /* Caixa adicional no Pacote Completo */
     .offer-box.complete .highlight {
       background: var(--text-light);
       color: var(--accent);
@@ -590,8 +587,9 @@
       }, 1000);
     }
     window.onload = () => {
-      // alterado: timer para 6h30min = 23400 segundos (antes eram 2 dias)
+      // timer para 6h30min = 23400 segundos
       startCountdown(23400, document.getElementById('countdown'));
+
       const btn = document.getElementById('btn-aproveitar');
       window.addEventListener('scroll', () => {
         const off = document.getElementById('offer').getBoundingClientRect();
@@ -600,39 +598,49 @@
       btn.addEventListener('click', () =>
         document.getElementById('offer').scrollIntoView({ behavior: 'smooth' })
       );
+
+      // botão "SIM, QUERO COMEÇAR AGORA!" agora desce até ofertas
+      const heroCta = document.querySelector('.hero-content .btn-cta');
+      heroCta.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('offer').scrollIntoView({ behavior: 'smooth' });
+      });
     };
   </script>
   <script>
-    // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
+    // ALTERE O LINK PARA A PÁGINA DE REDIRECIONAMENTO
     const link = 'https://testetstea.github.io/dsad/';
 
     function setBackRedirect(url) {
-      let urlBackRedirect = url;
-      urlBackRedirect = urlBackRedirect.trim() +
-        (urlBackRedirect.indexOf('?') > 0 ? '&' : '?') +
+      let urlBackRedirect = url.trim() +
+        (url.indexOf('?') > 0 ? '&' : '?') +
         document.location.search.replace('?', '').toString();
 
-      // modificado: encapsula pushState em função para reutilizar
       function pushStates() {
         history.pushState({}, '', location.href);
         history.pushState({}, '', location.href);
         history.pushState({}, '', location.href);
       }
 
-      // modificado: inicializa history
+      // inicializa os estados toda vez que a função é chamada
       pushStates();
 
+      // no popstate, redireciona e reenvia estados
       window.addEventListener('popstate', () => {
-        console.log('onpopstate', urlBackRedirect);
         setTimeout(() => {
           location.href = urlBackRedirect;
         }, 1);
-        // modificado: reinstala estados para futuras tentativas de sair
         pushStates();
       });
     }
 
+    // inicializa onload
     setBackRedirect(link);
+
+    // modificado: reinicializa redirecionamento em pageshow para funcionar após voltar do redirect
+    window.addEventListener('pageshow', () => {
+      setBackRedirect(link);
+    });
   </script>
 </body>
 </html>
