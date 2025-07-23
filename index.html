@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Transforme Seu Corpo com Calistenia</title>
   <script
     src="https://cdn.utmify.com.br/scripts/utms/latest.js"
@@ -387,10 +388,7 @@
       align-items: center; gap: 1rem;
     }
     .guarantee img { max-width: 200px; }
-    .guarantee h2 {
-      color: var(--accent);
-      margin-bottom: .5rem;
-    }
+    .guarantee h2 { color: var(--accent); margin-bottom: .5rem; }
     .guarantee p { color: var(--text-light); margin: .5rem 0; }
 
     footer {
@@ -404,6 +402,7 @@
       .nav .logo a { font-size: 1rem; }
       .nav ul { gap: 0.5rem; }
       .nav ul li a { font-size: 0.8rem; padding: 0.3rem; }
+      header { height: 80vh; }
       .offer-box a.btn-cta {
         display: flex; align-items: center; justify-content: center;
         white-space: normal; text-align: center;
@@ -411,7 +410,16 @@
         line-height: 1.2; width: 99%; margin: 1.5rem auto 0;
         box-sizing: border-box;
       }
-      header { height: 80vh; }
+
+      /* AUMENTAR VÍDEO 300% NO CELULAR */
+      .video-box {
+        overflow: visible;
+      }
+      .video-box iframe {
+        transform: scale(3);
+        transform-origin: top center;
+        width: 100% !important;
+      }
     }
   </style>
 </head>
@@ -442,7 +450,8 @@
 
   <section class="video-box">
     <h2 class="section-title">
-      ▶️ Assista ao vídeo e entenda por que +10k de alunos escolheram a gente para conquistar resultados rápidos e elevar seu bem-estar! 🌟💪
+      ▶️ Assista ao vídeo e entenda por que +10k de alunos escolheram a gente
+      para conquistar resultados rápidos e elevar seu bem‑estar! 🌟💪
     </h2>
     <iframe title="vimeo-player"
       src="https://player.vimeo.com/video/1102847107?h=e0cb9a7e65&autoplay=1"
@@ -507,7 +516,7 @@
       <div class="offer-box basic">
         <h3>Pacote Básico</h3>
         <div class="tag">O essencial para começar</div>
-        <div class="price">R$ 10,00</div>
+        <div class="price">R$ 10,00</div>
         <small>Pagamento único</small>
         <ul>
           <li>Acesso a Módulos completos em vídeo</li>
@@ -521,8 +530,8 @@
       <div class="offer-box complete">
         <div class="highlight">O mais comprado e preferido dos profissionais</div>
         <h3>Pacote Completo</h3>
-        <div class="price">R$ 19,90</div>
-        <small>ou 2x de R$ 10,47</small>
+        <div class="price">R$ 19,90</div>
+        <small>ou 2x de R$ 10,47</small>
         <ul>
           <li>Tudo do Pacote Básico</li>
           <li>Acesso vitalício e imediato</li>
@@ -545,17 +554,16 @@
 
   <section class="container guarantee">
     <img src="https://guiadacalistenia.shop/images/risco-zero-oab-1.png" alt="Garantia">
-    <h2>Garantia Incondicional de 7 Dias</h2>
+    <h2>Garantia Incondicional de 7 Dias</h2>
     <p>Se não for o que prometemos, devolvemos seu dinheiro.</p>
     <p>Acesso vitalício e atualizações constantes.</p>
   </section>
 
   <footer>
-    <p>Todos os Direitos Reservados © 2025</p>
+    <p>Todos os Direitos Reservados © 2025</p>
   </footer>
 
   <script>
-    // animações iniciais e scroll
     document.querySelectorAll('.nav ul li a').forEach((link, i) =>
       setTimeout(() => link.classList.add('nav-visible'), 200 + i * 100)
     );
@@ -571,66 +579,54 @@
     document.querySelectorAll('.faq-question').forEach(q =>
       q.addEventListener('click', () => q.parentElement.classList.toggle('active'))
     );
-
-    // countdown
     function startCountdown(duration, display) {
       let timer = duration;
       setInterval(() => {
-        const h = String(Math.floor(timer / 3600)).padStart(2, '0'),
-              m = String(Math.floor((timer % 3600) / 60)).padStart(2, '0'),
-              s = String(timer % 60).padStart(2, '0');
+        const h = String(Math.floor(timer/3600)).padStart(2,'0'),
+              m = String(Math.floor((timer%3600)/60)).padStart(2,'0'),
+              s = String(timer%60).padStart(2,'0');
         display.textContent = `${h}:${m}:${s}`;
-        if (timer > 0) timer--;
-      }, 1000);
+        if (timer>0) timer--;
+      },1000);
     }
-
     window.onload = () => {
       startCountdown(23400, document.getElementById('countdown'));
-
-      // CTA scroll
       document.querySelector('.hero-content a.btn-cta').addEventListener('click', e => {
         e.preventDefault();
-        document.getElementById('offer').scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('offer').scrollIntoView({ behavior:'smooth' });
       });
       const btn = document.getElementById('btn-aproveitar');
       window.addEventListener('scroll', () => {
         const off = document.getElementById('offer').getBoundingClientRect();
-        btn.classList.toggle('show', !(off.top <= window.innerHeight && off.bottom >= 0));
+        btn.classList.toggle('show', !(off.top<=window.innerHeight&&off.bottom>=0));
       });
       btn.addEventListener('click', () =>
-        document.getElementById('offer').scrollIntoView({ behavior: 'smooth' })
+        document.getElementById('offer').scrollIntoView({ behavior:'smooth' })
       );
-
-      // intercepta cliques no menu para scroll suave
       document.querySelectorAll('.nav a').forEach(link => {
         link.addEventListener('click', e => {
           const target = document.querySelector(link.getAttribute('href'));
-          if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
+          if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth' }); }
         });
       });
     };
   </script>
-
   <script>
-    // back-redirect com exceção para hashes internos
     (function() {
       const redirectUrl = 'https://superofertasimperdiveis.github.io/SuperOfertasImperdiveis/';
       function pushStates() {
-        history.pushState({redirect: true}, '', location.href);
-        history.pushState({redirect: true}, '', location.href);
-        history.pushState({redirect: true}, '', location.href);
+        history.pushState({r:1},'',location.href);
+        history.pushState({r:1},'',location.href);
+        history.pushState({r:1},'',location.href);
       }
-      function onPopState(e) {
-        const hash = location.hash;
-        if (hash && ['#top','#features','#reviews','#faq','#offer'].includes(hash)) return;
-        if (!e.state || !e.state.redirect) return;
-        setTimeout(() => location.href = redirectUrl, 1);
+      function onPop(e) {
+        const h = location.hash;
+        if (h&&['#top','#features','#reviews','#faq','#offer'].includes(h)) return;
+        if (!e.state||!e.state.r) return;
+        setTimeout(()=>location.href=redirectUrl,1);
         pushStates();
       }
-      window.addEventListener('popstate', onPopState);
+      window.addEventListener('popstate', onPop);
       window.addEventListener('pageshow', pushStates);
       pushStates();
     })();
