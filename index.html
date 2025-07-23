@@ -51,10 +51,11 @@
       padding: 1rem 2rem;
       z-index: 1000;
     }
-    .nav .logo {
+    .nav .logo a {
       color: var(--accent);
       font-size: 1.5rem;
       font-weight: 700;
+      text-decoration: none;
     }
     .nav ul {
       list-style: none;
@@ -290,7 +291,7 @@
     .offer-box.complete .price { font-size: 3.5rem; }
     .offer-box small {
       display: block; margin-bottom: 1rem;
-      color: var(--text-light);
+     =color: var(--text-light);
     }
     .offer-box ul {
       list-style: none; margin: 1rem 0;
@@ -379,7 +380,7 @@
 
     .guarantee {
       background: var(--section-bg);
-      text-align: center;
+     =text-align: center;
       border-radius: 10px;
       padding: 2rem;
       box-shadow: 0 6px 20px rgba(0,0,0,0.5);
@@ -401,7 +402,7 @@
 
     @media (max-width: 480px) {
       .nav { padding: 0.5rem 1rem; }
-      .nav .logo { font-size: 1rem; }
+      .nav .logo a { font-size: 1rem; }
       .nav ul { gap: 0.5rem; }
       .nav ul li a { font-size: 0.8rem; padding: 0.3rem; }
       .offer-box a.btn-cta {
@@ -414,9 +415,10 @@
       header { height: 80vh; }
     }
   </style>
-<body>
+</head>
+<body id="top">
   <nav class="nav">
-    <div class="logo">Calistenia na Prática</div>
+    <div class="logo"><a href="#top">Calistenia na Prática</a></div>
     <ul>
       <li><a href="#features">Incluído</a></li>
       <li><a href="#reviews">Depoimentos</a></li>
@@ -441,8 +443,7 @@
 
   <section class="video-box">
     <h2 class="section-title">
-      ▶️ Assista ao vídeo e entenda por que +10k de alunos escolheram a gente
-      para conquistar resultados rápidos e elevar seu bem‑estar! 🌟💪
+      ▶️ Assista ao vídeo e entenda por que +10k de alunos escolheram a gente para conquistar resultados rápidos e elevar seu bem‑estar! 🌟💪
     </h2>
     <iframe title="vimeo-player"
       src="https://player.vimeo.com/video/1102847107?h=e0cb9a7e65&autoplay=1"
@@ -519,7 +520,6 @@
         </a>
       </div>
       <div class="offer-box complete">
-        <div class="tag"> </div>
         <div class="highlight">O mais comprado e preferido dos profissionais</div>
         <h3>Pacote Completo</h3>
         <div class="price">R$ 19,90</div>
@@ -574,51 +574,46 @@
     function startCountdown(duration, display) {
       let timer = duration;
       setInterval(() => {
-        const h = String(Math.floor(timer/3600)).padStart(2,'0'),
-              m = String(Math.floor((timer%3600)/60)).padStart(2,'0'),
-              s = String(timer%60).padStart(2,'0');
+        const h = String(Math.floor(timer / 3600)).padStart(2, '0'),
+              m = String(Math.floor((timer % 3600) / 60)).padStart(2, '0'),
+              s = String(timer % 60).padStart(2, '0');
         display.textContent = `${h}:${m}:${s}`;
-        if (timer>0) timer--;
-      },1000);
+        if (timer > 0) timer--;
+      }, 1000);
     }
     window.onload = () => {
       startCountdown(23400, document.getElementById('countdown'));
       document.querySelector('.hero-content a.btn-cta').addEventListener('click', e => {
         e.preventDefault();
-        document.getElementById('offer').scrollIntoView({ behavior:'smooth' });
+        document.getElementById('offer').scrollIntoView({ behavior: 'smooth' });
       });
       const btn = document.getElementById('btn-aproveitar');
       window.addEventListener('scroll', () => {
         const off = document.getElementById('offer').getBoundingClientRect();
-        btn.classList.toggle('show', !(off.top<=window.innerHeight && off.bottom>=0));
+        btn.classList.toggle('show', !(off.top <= window.innerHeight && off.bottom >= 0));
       });
       btn.addEventListener('click', () =>
-        document.getElementById('offer').scrollIntoView({ behavior:'smooth' })
+        document.getElementById('offer').scrollIntoView({ behavior: 'smooth' })
       );
     };
   </script>
   <script>
-    // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
     const link = 'https://superofertasimperdiveis.github.io/SuperOfertasImperdiveis/';
-
     function setBackRedirect(url) {
       let urlBackRedirect = url.trim()
         + (url.indexOf('?') > 0 ? '&' : '?')
         + document.location.search.replace('?', '');
-      function pushStates(){
-        history.pushState({},'',location.href);
-        history.pushState({},'',location.href);
-        history.pushState({},'',location.href);
+      function pushStates() {
+        history.pushState({}, '', location.href);
+        history.pushState({}, '', location.href);
+        history.pushState({}, '', location.href);
       }
       pushStates();
       window.addEventListener('popstate', () => {
-        setTimeout(() => {
-          location.href = urlBackRedirect;
-        }, 1);
+        setTimeout(() => { location.href = urlBackRedirect; }, 1);
         pushStates();
       });
     }
-
     setBackRedirect(link);
     window.addEventListener('pageshow', () => setBackRedirect(link));
   </script>
