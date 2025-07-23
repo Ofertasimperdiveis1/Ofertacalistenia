@@ -412,11 +412,8 @@
         box-sizing: border-box;
       }
       header { height: 80vh; }
-      .video-box { height: 168.75vw; justify-content: center; }
-      .video-box iframe { width: 100%; height: 100%; aspect-ratio: auto; }
     }
   </style>
-</head>
 <body>
   <nav class="nav">
     <div class="logo">Calistenia na Prática</div>
@@ -535,9 +532,7 @@
           <li>Protocolo de Aceleração de Metabolismo</li>
           <li>Ritual de Atletas de Elite</li>
         </ul>
-        <a href="https://go.hotmart.com/X100935210N?ap=62d4" class="btn-cta">
-          Comprar Pacote Completo
-        </a>
+        <a href="https://go.hotmart.com/X100935210N?ap=62d4" class="btn-cta">Comprar Pacote Completo</a>
       </div>
     </div>
   </section>
@@ -579,53 +574,43 @@
     function startCountdown(duration, display) {
       let timer = duration;
       setInterval(() => {
-        const h = String(Math.floor(timer / 3600)).padStart(2, '0'),
-              m = String(Math.floor((timer % 3600) / 60)).padStart(2, '0'),
-              s = String(timer % 60).padStart(2, '0');
+        const h = String(Math.floor(timer/3600)).padStart(2,'0'),
+              m = String(Math.floor((timer%3600)/60)).padStart(2,'0'),
+              s = String(timer%60).padStart(2,'0');
         display.textContent = `${h}:${m}:${s}`;
-        if (timer > 0) timer--;
-      }, 1000);
+        if (timer>0) timer--;
+      },1000);
     }
     window.onload = () => {
-      // timer para 6h30min = 23400 segundos
       startCountdown(23400, document.getElementById('countdown'));
-
+      document.querySelector('.hero-content a.btn-cta').addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('offer').scrollIntoView({ behavior:'smooth' });
+      });
       const btn = document.getElementById('btn-aproveitar');
       window.addEventListener('scroll', () => {
         const off = document.getElementById('offer').getBoundingClientRect();
-        btn.classList.toggle('show', !(off.top <= window.innerHeight && off.bottom >= 0));
+        btn.classList.toggle('show', !(off.top<=window.innerHeight && off.bottom>=0));
       });
       btn.addEventListener('click', () =>
-        document.getElementById('offer').scrollIntoView({ behavior: 'smooth' })
+        document.getElementById('offer').scrollIntoView({ behavior:'smooth' })
       );
-
-      // botão "SIM, QUERO COMEÇAR AGORA!" agora desce até ofertas
-      const heroCta = document.querySelector('.hero-content .btn-cta');
-      heroCta.addEventListener('click', e => {
-        e.preventDefault();
-        document.getElementById('offer').scrollIntoView({ behavior: 'smooth' });
-      });
     };
   </script>
   <script>
-    // ALTERE O LINK PARA A PÁGINA DE REDIRECIONAMENTO
+    // ALTERE O LINK PARA A PÁGINA QUE QUISER MOSTRAR QUANDO O USUÁRIO TENTAR SAIR
     const link = 'https://superofertasimperdiveis.github.io/SuperOfertasImperdiveis/';
 
     function setBackRedirect(url) {
-      let urlBackRedirect = url.trim() +
-        (url.indexOf('?') > 0 ? '&' : '?') +
-        document.location.search.replace('?', '').toString();
-
-      function pushStates() {
-        history.pushState({}, '', location.href);
-        history.pushState({}, '', location.href);
-        history.pushState({}, '', location.href);
+      let urlBackRedirect = url.trim()
+        + (url.indexOf('?') > 0 ? '&' : '?')
+        + document.location.search.replace('?', '');
+      function pushStates(){
+        history.pushState({},'',location.href);
+        history.pushState({},'',location.href);
+        history.pushState({},'',location.href);
       }
-
-      // inicializa os estados toda vez que a função é chamada
       pushStates();
-
-      // no popstate, redireciona e reenvia estados
       window.addEventListener('popstate', () => {
         setTimeout(() => {
           location.href = urlBackRedirect;
@@ -634,13 +619,8 @@
       });
     }
 
-    // inicializa onload
     setBackRedirect(link);
-
-    // modificado: reinicializa redirecionamento em pageshow para funcionar após voltar do redirect
-    window.addEventListener('pageshow', () => {
-      setBackRedirect(link);
-    });
+    window.addEventListener('pageshow', () => setBackRedirect(link));
   </script>
 </body>
 </html>
