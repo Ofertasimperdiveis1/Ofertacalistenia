@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -232,6 +233,7 @@
     .stars { display: flex; gap: 4px; margin-top: .5rem; }
     .stars span { color: var(--star); }
 
+    /* Novos blocos de oferta lado a lado */
     .offers {
       display: flex;
       flex-wrap: wrap;
@@ -250,10 +252,12 @@
       text-align: center;
       transition: transform .3s;
     }
+    /* Pacote Básico (cinza) */
     .offer-box.basic {
       background: #444;
       flex: 1;
     }
+    /* Pacote Completo (vibrante, maior e pulsante) */
     .offer-box.complete {
       background: linear-gradient(135deg, #e63946, #ff4e50);
       flex: 1.2;
@@ -273,6 +277,7 @@
       margin-bottom: 0.5rem;
       color: var(--accent);
     }
+    /* Caixa adicional no Pacote Completo */
     .offer-box.complete .highlight {
       background: var(--text-light);
       color: var(--accent);
@@ -373,7 +378,7 @@
     }
     .faq-item.active .faq-answer {
       max-height: 200px; opacity: 1;
-      padding: 1رم 1.5rem;
+      padding: 1rem 1.5rem;
     }
 
     .guarantee {
@@ -415,6 +420,7 @@
       .video-box iframe { width: 100%; height: 100%; aspect-ratio: auto; }
     }
   </style>
+</head>
 <body>
   <nav class="nav">
     <div class="logo">Calistenia na Prática</div>
@@ -520,9 +526,10 @@
         </a>
       </div>
       <div class="offer-box complete">
-        <div class=\"highlight\">O mais comprado e preferido dos profissionais</div>
+        <div class="tag"> </div>
+        <div class="highlight">O mais comprado e preferido dos profissionais</div>
         <h3>Pacote Completo</h3>
-        <div class=\"price\">R$ 19,90</div>
+        <div class="price">R$ 19,90</div>
         <small>ou 2x de R$ 10,47</small>
         <ul>
           <li>Tudo do Pacote Básico</li>
@@ -584,6 +591,7 @@
       }, 1000);
     }
     window.onload = () => {
+      // alterado: timer para 6h30min = 23400 segundos (antes eram 2 dias)
       startCountdown(23400, document.getElementById('countdown'));
       const btn = document.getElementById('btn-aproveitar');
       window.addEventListener('scroll', () => {
@@ -594,36 +602,6 @@
         document.getElementById('offer').scrollIntoView({ behavior: 'smooth' })
       );
     };
-
-    // intercepta "voltar" e exibe o modal de super oferta
-    const link = 'https://meubackredirect.com.br';
-    function setBackRedirect(url) {
-      let urlBack = url.trim()
-        + (url.indexOf('?') > 0 ? '&' : '?')
-        + document.location.search.replace('?', '');
-      history.pushState({}, '', location.href);
-      history.pushState({}, '', location.href);
-      history.pushState({}, '', location.href);
-      window.addEventListener('popstate', e => {
-        e.preventDefault();
-        document.getElementById('exitModal').style.display = 'flex';
-      });
-    }
-    setBackRedirect(link);
-
-    // fecha modal
-    document.getElementById('exitClose').addEventListener('click', () => {
-      document.getElementById('exitModal').style.display = 'none';
-    });
-    document.getElementById('exitModal').addEventListener('click', e => {
-      if (e.target.id === 'exitModal') {
-        e.currentTarget.style.display = 'none';
-      }
-    });
-    // cta leva ao link
-    document.getElementById('exitCta').addEventListener('click', () => {
-      location.href = link + (link.includes('?') ? '&' : '?') + location.search.replace('?', '');
-    });
   </script>
 </body>
 </html>
